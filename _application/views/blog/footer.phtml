@@ -1,0 +1,7 @@
+<p><?php
+    if(@$entry->id){
+        echo anchor('blog/write/' . $entry->id, 'edit entry');
+    } else {
+        echo anchor('blog/write/', 'new entry');
+    }
+?></p>

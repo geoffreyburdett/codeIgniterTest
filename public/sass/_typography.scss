@@ -1,0 +1,65 @@
+@include establish-baseline;
+
+h1, h2, h3, h4, h5, h6,
+p, span, blockquote,
+pre, a, abbr, acronym, address, cite, code,
+del, dfn, em, strike, strong, sub, sup, tt, var,
+dl, dt, dd, ol, ul, li,
+table, caption, tbody, tfoot, thead, tr, th, td{
+    color: $text-color; 
+}
+
+p{
+    @include trailer();  
+}
+
+h1, h2, h3, h4, h5, h6{
+    @include leader(); 
+    font-weight: bold;
+    color: $header-color; 
+}
+
+ul, ol, dl{ 
+    @include trailer(); 
+}
+
+h1{
+    @include adjust-font-size-to($base-font-size + 10px);
+}
+h2{
+    @include adjust-font-size-to($base-font-size + 8px);
+}
+h3{
+    @include adjust-font-size-to($base-font-size + 6px);
+}
+h4{
+    @include adjust-font-size-to($base-font-size + 4px);
+}
+h5{
+    @include adjust-font-size-to($base-font-size + 2px);
+}
+h6{
+    @include adjust-font-size-to($base-font-size);
+}
+
+a{
+    text-decoration: none;
+    color: $link-color;
+}
+
+a:visited{
+    color: $visited-link-color;
+}
+
+a:hover, a:active, a:focus{
+    text-decoration: underline;
+    color: $hover-link-color;
+}
+
+strong{
+    font-weight: bold;
+}
+
+em{
+    font-style: italic;
+}

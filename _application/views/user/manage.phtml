@@ -1,0 +1,19 @@
+
+    <div id='login_form'>
+        Select a user to edit
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Username</th>
+                <th>Access Level</th>
+            </tr>
+        <?php foreach($users AS $user){ ?>
+            <tr>
+                <td><?php echo anchor("user/edit/$user->id",$user->first_name . ' ' . $user->last_name); ?></td>
+                <td><?php echo anchor("user/edit/$user->id",$user->username); ?></td>
+                <td><?php echo anchor("user/edit/$user->id",access_to_string($user->access_level)); ?></td>
+            </tr>
+        <?php } ?>
+        </table>
+        <?php echo anchor('user/edit/','<button>Add New User</button>'); ?>
+    </div>

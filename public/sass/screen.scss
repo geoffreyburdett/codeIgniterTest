@@ -1,0 +1,114 @@
+@import "base"; 
+@import "typography"; 
+
+@include border-box-sizing;
+
+/**
+ * Layout Styles for AG grids & Container
+ */
+ 
+.container {
+  @include container(1500px);
+  @include clearfix; 
+}
+
+.main-header{
+  @include span(full);
+  background-color: #f0f;
+}
+
+.main-messages {
+  @include span(full);
+  background-color: #aaa;
+}
+
+.error {
+  @include span(full);
+  background-color: #f00;
+}
+
+.success {
+  @include span(full);
+  background-color: #0f0;
+}
+
+.main-content {
+  @include span(full);
+  @include breakpoint($tablet) {
+    @include span(9 last);
+  }
+  background-color: #ff0;
+}
+
+.main-navigation {
+  @include span(full);
+  @include breakpoint($tablet) {
+    @include span(3);
+  }
+  background-color: #0ff;
+}
+
+.main-footer {
+  @include span(full);
+  background-color: #6f6;
+}
+
+/*
+.ag2 {
+  @include breakpoint($tablet) {
+    @include span(9);
+  }
+  @include breakpoint($laptop) {
+      @include span(8);
+  }
+  @include clearfix; 
+}
+
+.ag3 {
+  @include breakpoint($tablet) {
+    @include span(3 last);
+  }
+  @include breakpoint($laptop) {
+    @include span(2 last);
+  }
+}
+
+.ag4,
+.ag5 {
+  @include span(3 of 6);
+}
+
+.ag5 {
+  @include last;
+}
+
+.ag6 {
+  @include span(2 of 6);
+}
+
+.ag7 {
+  @include span(4 of 6 last);
+  @include clearfix;
+}
+
+.ag8 {
+  @include span(2 of 4);
+}
+
+.ag9 {
+  @include span(2 of 4 last);
+}
+
+.ag10 {
+  @include span(full);
+}
+/*
+
+
+/**
+ * Styles for AG grids & Container
+ */
+
+body {
+  background-color: $background-color;
+}

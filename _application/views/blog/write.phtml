@@ -1,0 +1,18 @@
+<?php echo validation_errors(); ?>
+
+<?php echo form_open('blog/write/' . @$entry->id); ?>
+
+<input type="hidden" name="id" value="<?php echo set_edit_value('id',@$entry); ?>" /><br />
+
+<label for="title">Title</label>
+<input type="input" name="title" value="<?php echo set_edit_value('title',@$entry); ?>" /><br />
+
+<label for="slug">URL Slug</label>
+<input type="input" name="slug" value="<?php echo set_edit_value('slug',@$entry); ?>" /><br />
+
+<label for="content">Content</label>
+<textarea name="content"><?php echo set_edit_value('content',@$entry); ?></textarea> <br />
+
+<input type="submit" value="Save Blog Entry" />
+
+</form>

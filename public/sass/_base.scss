@@ -1,0 +1,26 @@
+@import "compass";
+@import "compass/reset";
+@import "susy";
+@import "breakpoint";
+
+/*SUSY SETTINGS*/
+$susy: (
+  columns: 12,
+  gutters: 1/8
+);
+
+/*BREAKPOINTS*/
+$tablet: 600px;
+$computer: 900px;
+
+/*COLORS*/
+$background-color: #99ddff;
+$text-color: #000000;
+$header-color: #333366;
+$link-color: #777700;
+$visited-link-color: #777733;
+$hover-link-color: #aaaa00;
+
+/*TYPOGRAPHY*/
+$base-font-size: 16px;
+$base-line-height: 22px;

@@ -1,0 +1,41 @@
+<?php echo validation_errors(); ?>
+
+<?php echo ($success ? '<h3>' . @$user->first_name . ' ' . @$user->last_name . ' has been updated</h3>' : FALSE); ?>
+
+<?php echo form_open("user/edit/" . @$user->id); ?>
+
+<input type="hidden" name="id" value="<?php echo set_edit_value('id',@$user); ?>" /><br />
+
+<label for="first_name">First Name</label>
+<input type="input" name="first_name" value="<?php echo set_edit_value('first_name',@$user); ?>" /><br />
+
+<label for="last_name">Last Name</label>
+<input type="input" name="last_name" value="<?php echo set_edit_value('last_name',@$user); ?>" /><br />
+
+<label for="username">Username</label>
+<input type="input" name="username" value="<?php echo set_edit_value('username',@$user); ?>" /><br />
+
+<label for="email">Email</label>
+<input type="input" name="email" value="<?php echo set_edit_value('email',@$user); ?>" /><br />
+
+<label for="access_level">Access Level</label>
+<select name="access_level" value="<?php echo set_edit_value('username',@$user); ?>">
+  <option value="10"><?php echo access_to_string(10); ?></option>
+  <option value="20"><?php echo access_to_string(20); ?></option>
+  <option value="30"><?php echo access_to_string(30); ?></option>
+  <option value="40"><?php echo access_to_string(40); ?></option>
+  <option value="50"><?php echo access_to_string(50); ?></option>
+</select>
+<br />
+<input type="submit" value="Save User Info" />
+
+</form>
+
+<hr />
+
+<?php echo form_open("user/delete/" . @$user->id); ?>
+
+<input type="hidden" name="id" value="<?php echo set_edit_value('id',@$user); ?>" /><br />
+<input type="submit" value="Delete User" />
+
+</form>
