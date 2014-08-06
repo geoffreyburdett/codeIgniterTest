@@ -1,5 +1,5 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-/* Author: Jorge Torres
+/* Author: Geoffrey Burdett
  * Description: Login controller class
  */
 class User extends ODD_Controller{
@@ -67,8 +67,8 @@ class User extends ODD_Controller{
         
         $this->form_validation->set_rules('first_name',   'First Name',    'trim|required');
         $this->form_validation->set_rules('last_name',    'Last Name',     'trim|required');
-        $this->form_validation->set_rules('username',     'Username',      'trim|required|min_length[5]');
-        $this->form_validation->set_rules('email',        'Email Address', 'trim|required|valid_email');
+        $this->form_validation->set_rules('username',     'Username',      'trim|required|min_length[5]|is_unique[users.username.id.' . $id . ']');
+        $this->form_validation->set_rules('email',        'Email Address', 'trim|required|valid_email|is_unique[users.email.id.' . $id . ']');
         $this->form_validation->set_rules('access_level', 'Access Level',  'trim|required');    
         if (! $id){   
             $this->form_validation->set_rules('username', 'Username',      'trim|required|min_length[5]|is_unique[users.username]');
@@ -80,15 +80,14 @@ class User extends ODD_Controller{
             if ($id){
                 $this->user_model->update($user_data);
             } else {
-                $new_password = $this->user_model->random_password();
-                $user_data['password'] = md5($new_password);
+                $user_data['password'] = md5($this->user_model->random_password());
                 $insert_id = $this->user_model->insert($user_data);
-                $this->load->library('email');
                 
+                $this->load->library('email');
                 $email_data = array(
                     'to_name' => $user_data['first_name'],
                     'username' => $user_data['username'],
-                    'password' => $new_password,
+                    'password' => $user_data['password'],
                     'header_title' => 'Welcome to Odder Otter',
                 );
                 $this->email->from('info@geoffreydesigns.com', 'Geoffrey Burdett')
@@ -97,9 +96,9 @@ class User extends ODD_Controller{
                             ->message($this->layout->render('templates/email_new_user', $email_data, 'email', TRUE))
                             ->send();
                             
-                redirect("user/edit/$insert_id/success");
+                $this->messages->add_messages('success', $user_data['username'] . ' has been updated');
+                redirect("user/edit/$insert_id");
             }
-            $success = TRUE;
         }
                  
         if ($id){
@@ -108,7 +107,7 @@ class User extends ODD_Controller{
         } else {
             $data['title'] = 'Add User';
         }
-        $data['success'] = $success; 
+        
         $this->layout->render('user/edit', $data);
     }
     

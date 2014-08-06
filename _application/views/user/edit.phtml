@@ -1,7 +1,5 @@
 <?php echo validation_errors(); ?>
 
-<?php echo ($success ? '<h3>' . @$user->first_name . ' ' . @$user->last_name . ' has been updated</h3>' : FALSE); ?>
-
 <?php echo form_open("user/edit/" . @$user->id); ?>
 
 <input type="hidden" name="id" value="<?php echo set_edit_value('id',@$user); ?>" /><br />
