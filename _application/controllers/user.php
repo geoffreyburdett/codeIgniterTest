@@ -52,9 +52,9 @@ class User extends ODD_Controller{
     
     public function manage($slug = FALSE){
         $this->session->redirect_invalid_user(40);
-        $data['users'] = $this->user_model->get_all();
-        $data['title'] = 'Manage Users';
-        $this->layout->render('user/manage', $data);
+        $this->data['users'] = $this->user_model->get_all();
+        $this->data['title'] = 'Manage Users';
+        $this->layout->render('user/manage', $this->data);
     }
     
     
@@ -79,6 +79,7 @@ class User extends ODD_Controller{
         if ($this->form_validation->run() === TRUE){
             if ($id){
                 $this->user_model->update($user_data);
+                $this->data['success'][] =  'The user account for ' . $user_data['first_name'] . ' ' . $user_data['last_name'] . ' has been updated.';
             } else {
                 $user_data['password'] = md5($this->user_model->random_password());
                 $insert_id = $this->user_model->insert($user_data);
@@ -96,39 +97,41 @@ class User extends ODD_Controller{
                             ->message($this->layout->render('templates/email_new_user', $email_data, 'email', TRUE))
                             ->send();
                             
-                $this->messages->add_messages('success', $user_data['username'] . ' has been updated');
+                $this->messages->add_messages('success','A user account for ' . $user_data['first_name'] . ' ' . $user_data['last_name'] . ' has been created.');
                 redirect("user/edit/$insert_id");
             }
         }
                  
         if ($id){
-            $data['user'] = $this->user_model->get_single('id',$id);
-            $data['title'] = 'Edit User';
+            $this->data['user'] = $this->user_model->get_single('id',$id);
+            $this->data['title'] = 'Edit User';
         } else {
-            $data['title'] = 'Add User';
+            $this->data['title'] = 'Add User';
         }
         
-        $this->layout->render('user/edit', $data);
+        $this->layout->render('user/edit', $this->data);
     }
     
     
     
     public function delete($id){
         $this->session->redirect_invalid_user(40);
+        $user_data = $this->user_model->get_single('id',$id);
                  
         if (! $id){
             redirect('user/manage');
         }
                  
         if (@$_POST['confirm_delete_' . $id]){
-            $this->user_model->delete('id',$id);
+            $this->user_model->delete('id',$id);                
+            $this->messages->add_messages('success','The user account for ' . $user_data['first_name'] . ' ' . $user_data['last_name'] . ' has been deleted.');
             redirect('user/manage');
         }
         
         $this->load->helper('form'); 
-        $data['user'] = $this->user_model->get_single('id',$id);
-        $data['title'] = 'Delete User';
-        $this->layout->render('user/delete', $data);
+        $this->data['user'] = $user_data;
+        $this->data['title'] = 'Delete User';
+        $this->layout->render('user/delete', $this->data);
     }
     
     

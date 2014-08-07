@@ -1,2 +1,5 @@
-[_]notes/
+#Dreamweaver sync files
+_notes/
+
+#Database configs
 database.php
